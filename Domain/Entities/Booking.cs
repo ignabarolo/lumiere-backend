@@ -9,9 +9,9 @@ public class Booking : BaseEntity
 
     public PaymentMethod PaymentMethod { get; set; }
 
-    public Guid User_ID { get; set; }
+    public Guid UserId { get; set; }
     public virtual User User { get; set; } = null!;
 
-    public Guid Screening_ID { get; set; }
+    public Guid ScreeningId { get; set; }
     public virtual Screening Screening { get; set; } = null!;
 }
