@@ -1,8 +1,33 @@
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+try
+{
+    using (var connection = new NpgsqlConnection(connectionString))
+    {
+        connection.Open();
+        Console.WriteLine("¡Conexión a PostgreSQL establecida con éxito!");
+        Console.WriteLine($"Versión: {connection.PostgreSqlVersion}");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error de conexión: {ex.Message}");
+}
+
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString)
+    .UseSnakeCaseNamingConvention());
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
