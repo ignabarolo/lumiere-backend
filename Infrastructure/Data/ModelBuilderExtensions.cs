@@ -2,7 +2,7 @@
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence;
+namespace Infrastructure.Data;
 
 public static class ModelBuilderExtensions
 {

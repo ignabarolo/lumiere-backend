@@ -1,10 +1,12 @@
+using Application;
 using Domain.Interfaces;
 using Infrastructure;
-using Infrastructure.Persistence;
-using Infrastructure.Repositories;
+using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +34,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+                                                options.JsonSerializerOptions
+                                                        .ReferenceHandler = ReferenceHandler.IgnoreCycles); // configuracion para ignorar ciclos de referencia en la serialización JSON
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

@@ -1,5 +1,5 @@
 ﻿using Domain.Interfaces;
-using Infrastructure.Persistence;
+using Infrastructure.Data;
 
 namespace Infrastructure;
 

@@ -1,9 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Data.Repositories;
 
 public class MovieRepository : IMovieRepository
 {
@@ -12,8 +11,8 @@ public class MovieRepository : IMovieRepository
     public MovieRepository(AppDbContext context) => _context = context;
     
 
-    public async Task<Movie> GetByIdAsync(int id) =>
-        await _context.Movie.FindAsync(id) ?? new Movie();
+    public async Task<Movie?> GetByIdAsync(Guid id) =>
+        await _context.Movie.FirstOrDefaultAsync(w => w.Id == id);
 
     public async Task<IEnumerable<Movie>> GetAllAsync() =>
         await _context.Movie.ToListAsync();
