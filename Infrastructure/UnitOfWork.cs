@@ -6,8 +6,14 @@ namespace Infrastructure;
 public class UnitOfWork : IUnitOfWork
 {
     public readonly AppDbContext _context;
+    public IMovieRepository MovieRepository { get; }
 
-    public UnitOfWork(AppDbContext context) =>_context = context;
+    public UnitOfWork(AppDbContext context, IMovieRepository movieRepository)
+    {
+        _context = context;
+        MovieRepository = movieRepository;
+    }
+
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
