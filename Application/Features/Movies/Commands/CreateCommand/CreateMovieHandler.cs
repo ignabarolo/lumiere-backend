@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.Movies.Commands.CreateCommand;
 
-public class CreateMovieHandler(IMovieRepository repository, IUnitOfWork unitOfWork)
+public class CreateMovieHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateMovieCommand, Guid>
 {
     public async Task<Guid> Handle(CreateMovieCommand request, CancellationToken cancellationToken)
@@ -19,7 +19,7 @@ public class CreateMovieHandler(IMovieRepository repository, IUnitOfWork unitOfW
             State = State.Active,
         };
 
-        await repository.AddAsync(movie);
+        await unitOfWork.MovieRepository.AddAsync(movie);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return movie.Id;
