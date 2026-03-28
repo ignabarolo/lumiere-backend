@@ -42,12 +42,19 @@ builder.Services.AddControllers().AddJsonOptions(options =>
                                                         .ReferenceHandler = ReferenceHandler.IgnoreCycles); // configuracion para ignorar ciclos de referencia en la serialización JSON
 builder.Services.AddOpenApi();
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("Lumiere API")
+               .WithTheme(ScalarTheme.Moon)
+               .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
+    app.MapGet("/", () => Results.Redirect("/scalar/v1"));
 }
 
 app.UseHttpsRedirection();
