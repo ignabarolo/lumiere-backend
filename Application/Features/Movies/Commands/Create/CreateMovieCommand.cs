@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Movies.Commands.CreateCommand;
+namespace Application.Features.Movies.Commands.Create;
 
 public record CreateMovieCommand(
     string Title,

@@ -1,5 +1,7 @@
-﻿using Application.Features.Movies.Commands.CreateCommand;
-using Application.Features.Movies.Queries.GetMovieById;
+﻿using Application.Features.Movies.Commands.Create;
+using Application.Features.Movies.Commands.Delete;
+using Application.Features.Movies.Commands.Update;
+using Application.Features.Movies.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +12,7 @@ namespace Lumiere.Backend.Controllers;
 public class MoviesController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create(CreateMovieCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateMovieCommand command)
     {
         var id = await mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, id);
@@ -21,5 +23,19 @@ public class MoviesController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new GetMovieByIdQuery(id));
         return result is not null ? Ok(result) : NotFound();
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromBody] UpdateMovieCommand command, Guid id)
+    {
+        var idCreated = await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var result = await mediator.Send(new DeleteMovieCommand(id));
+        return NoContent();
     }
 }

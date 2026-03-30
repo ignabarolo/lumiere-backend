@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Movies.Queries.GetMovieById;
+namespace Application.Features.Movies.Queries.GetById;
 
 public class GetMovieByIdHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetMovieByIdQuery, MovieResponse>
 {

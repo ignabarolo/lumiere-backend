@@ -1,5 +1,6 @@
 ﻿
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
@@ -11,20 +12,26 @@ public class AppDbContext : DbContext
 
     public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
-        var entries = ChangeTracker.Entries().Where(e => e.Entity is BaseEntity);
+        var entries = ChangeTracker.Entries<BaseEntity>().Where(e => e.Entity is BaseEntity);
         foreach (var entry in entries)
         {
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Property("Created").CurrentValue = DateTime.UtcNow;
-                    entry.Property("CreatedBy").CurrentValue = "UserAdmin";
-                    entry.Property("Modified").CurrentValue = DateTime.UtcNow;
-                    entry.Property("ModifiedBy").CurrentValue = "UserAdmin";
+                    entry.Entity.Created = DateTime.UtcNow;
+                    entry.Entity.CreatedBy = "UserAdmin";
+                    entry.Entity.Modified = DateTime.UtcNow;
+                    entry.Entity.ModifiedBy = "UserAdmin";
                     break;
                 case EntityState.Modified:
-                    entry.Property("Modified").CurrentValue = DateTime.UtcNow;
-                    entry.Property("ModifiedBy").CurrentValue = "UserAdmin";
+                    entry.Entity.Modified = DateTime.UtcNow;
+                    entry.Entity.ModifiedBy = "UserAdmin";
+                    break;
+                case EntityState.Deleted:
+                    entry.State = EntityState.Modified;
+                    entry.Entity.Modified = DateTime.UtcNow;
+                    entry.Entity.ModifiedBy = "UserAdmin";
+                    entry.Entity.State = State.Deleted;
                     break;
             }
         }
