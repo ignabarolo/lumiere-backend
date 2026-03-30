@@ -3,10 +3,9 @@ using Domain.Enums;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Movies.Commands.CreateCommand;
+namespace Application.Features.Movies.Commands.Create;
 
-public class CreateMovieHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateMovieCommand, Guid>
+public class CreateMovieHandler(IUnitOfWork unitOfWork): IRequestHandler<CreateMovieCommand, Guid>
 {
     public async Task<Guid> Handle(CreateMovieCommand request, CancellationToken cancellationToken)
     {
