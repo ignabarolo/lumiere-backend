@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces;
+using Lumiere.Application.Exceptions;
 using MediatR;
 
 namespace Application.Features.Movies.Commands.Update;
@@ -9,7 +10,7 @@ public class UpdateMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<Update
     {
         var movie = await unitOfWork.MovieRepository.GetByIdAsync(request.Id);
 
-        if (movie == null) return new Guid();
+        if (movie == null) throw new NotFoundException($"The movie {request.Id} was not found");
 
         movie.Title = request.Title;
         movie.Genre = request.Genre;

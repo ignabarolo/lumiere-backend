@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,10 @@ public class MovieRepository : IMovieRepository
     
 
     public async Task<Movie?> GetByIdAsync(Guid id) =>
-        await _context.Movie.FirstOrDefaultAsync(w => w.Id == id);
+        await _context.Movie.AsNoTracking().FirstOrDefaultAsync(w => w.Id == id && w.State == State.Active);
 
     public async Task<IEnumerable<Movie>> GetAllAsync() =>
-        await _context.Movie.ToListAsync();
+        await _context.Movie.Where(w => w.State == State.Active).AsNoTracking().ToListAsync();
 
     public async Task AddAsync(Movie entity) =>
         await _context.Movie.AddAsync(entity);
@@ -28,7 +29,7 @@ public class MovieRepository : IMovieRepository
 
     public async Task<IEnumerable<Movie>> GetMoviesByGenreAsync(string genre)
     {
-        var movies = await _context.Movie.Where(w => w.Genre == genre).AsNoTracking().ToListAsync();
+        var movies = await _context.Movie.Where(w => w.Genre == genre && w.State == State.Active).AsNoTracking().ToListAsync();
         return movies;
     }
 }

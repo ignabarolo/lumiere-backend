@@ -3,12 +3,14 @@ using Domain.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
+using Lumiere.Backend.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection")
@@ -36,6 +38,10 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+
 //builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>
                                                 options.JsonSerializerOptions
@@ -56,6 +62,8 @@ if (app.Environment.IsDevelopment())
     });
     app.MapGet("/", () => Results.Redirect("/scalar/v1"));
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
