@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces;
+using Lumiere.Application.Exceptions;
 using MediatR;
 
 namespace Application.Features.Movies.Commands.Delete;
@@ -9,7 +10,7 @@ public class DeleteMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<Delete
     {
         var movie = await unitOfWork.MovieRepository.GetByIdAsync(request.Id);
 
-        if (movie == null) return Guid.Empty;
+        if (movie == null) throw new NotFoundException($"The movie {request.Id} was not found");
 
         unitOfWork.MovieRepository.Delete(movie);
         await unitOfWork.SaveChangesAsync(cancellationToken);
