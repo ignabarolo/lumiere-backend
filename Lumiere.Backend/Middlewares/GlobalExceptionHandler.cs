@@ -1,4 +1,5 @@
-﻿using Lumiere.Application.Exceptions;
+﻿using Application.Exceptions;
+using Lumiere.Application.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,20 @@ public class GlobalExceptionHandler : IExceptionHandler
                 await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
                 {
                     Type = exception.GetType().Name,
-                    Title = "An error occured",
+                    Title = "The resource was not found.",
                     Status = StatusCodes.Status404NotFound,
                     Detail = notFoundEx.Message
+                }, cancellationToken);
+                return true;
+            case SysValidationException validationEx:
+                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+                await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Type = exception.GetType().Name,
+                    Title = validationEx.Message,
+                    Status = StatusCodes.Status400BadRequest,
+                    Detail = validationEx.Message,
+                    Extensions = { ["errors"] = validationEx.Errors }
                 }, cancellationToken);
                 return true;
             default:
