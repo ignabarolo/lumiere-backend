@@ -10,7 +10,7 @@ public class MovieRepository : IMovieRepository
     public readonly AppDbContext _context;
 
     public MovieRepository(AppDbContext context) => _context = context;
-    
+
 
     public async Task<Movie?> GetByIdAsync(Guid id) =>
         await _context.Movie.AsNoTracking().FirstOrDefaultAsync(w => w.Id == id && w.State == State.Active);
@@ -27,9 +27,12 @@ public class MovieRepository : IMovieRepository
     public void Delete(Movie entity) =>
         _context.Movie.Remove(entity);
 
-    public async Task<IEnumerable<Movie>> GetMoviesByGenreAsync(string genre)
+    public async Task<IEnumerable<Movie>> GetMoviesByFilterAsync(string filter)
     {
-        var movies = await _context.Movie.Where(w => w.Genre == genre && w.State == State.Active).AsNoTracking().ToListAsync();
+        var movies = await _context.Movie.Where(w => (w.Genre.ToLower() == filter ||
+                                                    w.Classification.ToLower() == filter ||
+                                                    filter == string.Empty) &&
+                                                    w.State == State.Active).AsNoTracking().ToListAsync();
         return movies;
     }
 }

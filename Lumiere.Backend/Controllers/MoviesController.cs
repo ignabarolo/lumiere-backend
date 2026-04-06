@@ -2,6 +2,7 @@
 using Application.Features.Movies.Commands.Delete;
 using Application.Features.Movies.Commands.Update;
 using Application.Features.Movies.Queries.GetById;
+using Application.Features.Movies.Queries.GetList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,13 @@ public class MoviesController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await mediator.Send(new GetMovieByIdQuery(id));
+        return result is not null ? Ok(result) : NotFound();
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetListByFilter([FromQuery] GetListMovieQuery query)
+    {
+        var result = await mediator.Send(query);
         return result is not null ? Ok(result) : NotFound();
     }
     
