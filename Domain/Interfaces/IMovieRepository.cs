@@ -4,5 +4,5 @@ namespace Domain.Interfaces;
 
 public interface IMovieRepository : IRepository<Movie>
 {
-    Task<IEnumerable<Movie>> GetMoviesByGenreAsync(string genre);
+    Task<IEnumerable<Movie>> GetMoviesByFilterAsync(string filter);
 }
