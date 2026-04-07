@@ -1,11 +1,14 @@
 ﻿using FluentValidation;
 
-namespace Application.Features.Movies.Commands.Create;
+namespace Application.Features.Movies.Commands.Update;
 
-public class UpdateMovieCommandValidator : AbstractValidator<CreateMovieCommand>
+public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
 {
     public UpdateMovieCommandValidator()
     {
+        RuleFor(x => x.Id)
+            .NotNull().NotEmpty().WithMessage("The ID is required.");
+        
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("The title is required.")
             .MaximumLength(100).WithMessage("The title must not exceed 100 characters.");
