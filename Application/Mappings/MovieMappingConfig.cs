@@ -1,4 +1,5 @@
-﻿using Application.Features.Movies.Queries.GetById;
+﻿using Application.Features.Movies.Queries.Common;
+using Application.Features.Movies.Queries.GetById;
 using Application.Features.Movies.Queries.GetList;
 using Domain.Entities;
 using Mapster;
@@ -11,5 +12,6 @@ public class MovieMappingConfig : IRegister
     {
         config.NewConfig<Movie, MovieResponse>();
         config.NewConfig<Movie, MovieListResponse>();
+        config.NewConfig<Screening, MovieScreeningResponse>();
     }
 }
