@@ -13,7 +13,7 @@ public class MovieRepository : IMovieRepository
 
 
     public async Task<Movie?> GetByIdAsync(Guid id) =>
-        await _context.Movie.AsNoTracking().FirstOrDefaultAsync(w => w.Id == id && w.State == State.Active);
+        await _context.Movie.AsNoTracking().Include(m => m.Screenings).FirstOrDefaultAsync(w => w.Id == id && w.State == State.Active);
 
     public async Task<IEnumerable<Movie>> GetAllAsync() =>
         await _context.Movie.Where(w => w.State == State.Active).AsNoTracking().ToListAsync();
@@ -32,7 +32,10 @@ public class MovieRepository : IMovieRepository
         var movies = await _context.Movie.Where(w => (w.Genre.ToLower() == filter ||
                                                     w.Classification.ToLower() == filter ||
                                                     filter == string.Empty) &&
-                                                    w.State == State.Active).AsNoTracking().ToListAsync();
+                                                    w.State == State.Active).Include(m => m.Screenings)
+                                                                            .AsNoTracking()
+                                                                            .AsQueryable()
+                                                                            .ToListAsync();
         return movies;
     }
 }
