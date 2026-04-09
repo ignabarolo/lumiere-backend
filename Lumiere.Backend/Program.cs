@@ -35,6 +35,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     .UseSnakeCaseNamingConvention());
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<ICinemaRepository, CinemaRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 builder.Services.AddApplicationServices();

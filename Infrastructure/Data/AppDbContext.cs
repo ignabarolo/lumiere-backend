@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data;
 
@@ -28,14 +29,42 @@ public class AppDbContext : DbContext
                     entry.Entity.ModifiedBy = "UserAdmin";
                     break;
                 case EntityState.Deleted:
-                    entry.State = EntityState.Modified;
-                    entry.Entity.Modified = DateTime.UtcNow;
-                    entry.Entity.ModifiedBy = "UserAdmin";
-                    entry.Entity.State = State.Deleted;
+                    HandleSoftDelete(entry);
                     break;
             }
         }
         return await base.SaveChangesAsync(ct);
+    }
+
+    private void HandleSoftDelete(EntityEntry<BaseEntity> entry)
+    {
+        entry.State = EntityState.Modified;
+        entry.Entity.Modified = DateTime.UtcNow;
+        entry.Entity.ModifiedBy = "UserAdmin";
+        entry.Entity.State = State.Deleted;
+
+        foreach (var navigationEntry in entry.Navigations)
+        {
+            if (navigationEntry is CollectionEntry collectionEntry && collectionEntry.CurrentValue != null)
+            {
+                foreach (var dependentEntity in collectionEntry.CurrentValue)
+                {
+                    if (dependentEntity is BaseEntity child)
+                    {
+                        var childEntry = Entry(child);
+                        if (childEntry.State != EntityState.Deleted && child.State != State.Deleted)
+                        {
+                            HandleSoftDelete(childEntry);
+                        }
+                    }
+                }
+            }
+            else if (navigationEntry is ReferenceEntry referenceEntry && referenceEntry.CurrentValue is BaseEntity child)
+            {
+                var childEntry = Entry(child);
+                HandleSoftDelete(childEntry);
+            }
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -7,11 +7,13 @@ public class UnitOfWork : IUnitOfWork
 {
     public readonly AppDbContext _context;
     public IMovieRepository MovieRepository { get; }
+    public ICinemaRepository CinemaRepository { get; }
 
-    public UnitOfWork(AppDbContext context, IMovieRepository movieRepository)
+    public UnitOfWork(AppDbContext context, IMovieRepository movieRepository, ICinemaRepository cinemaRepository)
     {
         _context = context;
         MovieRepository = movieRepository;
+        CinemaRepository = cinemaRepository;
     }
 
 
