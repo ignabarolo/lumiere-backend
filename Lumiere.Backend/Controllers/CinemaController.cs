@@ -43,8 +43,8 @@ public class CinemaController(IMediator mediator) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromBody] UpdateCinemaCommand command, Guid id)
     {
-        if (id != command.Id) return BadRequest();
-        var result = await mediator.Send(command);
+        if (id != command.Id) return BadRequest("ID in URL does not match ID in body.");
+        await mediator.Send(command);
         return NoContent();
     }
 }

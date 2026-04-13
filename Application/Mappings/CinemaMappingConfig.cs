@@ -9,7 +9,7 @@ public class CinemaMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Cinema, CreateCinemaCommand>();
+        config.NewConfig<CreateCinemaCommand, Cinema>();
         config.NewConfig<Cinema, CinemaResponse>();
     }
 }
