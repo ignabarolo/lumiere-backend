@@ -8,5 +8,7 @@ public interface IUnitOfWork : IDisposable
 
     public IRoomRepository RoomRepository { get; }
 
+    public ISeatRepository SeatRepository { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

@@ -11,6 +11,14 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
 
+    public DbSet<Booking> Booking { get; set; }
+    public DbSet<Cinema> Cinema { get; set; }
+    public DbSet<Movie> Movie { get; set; }
+    public DbSet<Room> Room { get; set; }
+    public DbSet<Screening> Screening { get; set; }
+    public DbSet<Seat> Seat { get; set; }
+    public DbSet<User> User { get; set; }
+
     public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
         var entries = ChangeTracker.Entries<BaseEntity>().Where(e => e.Entity is BaseEntity);
@@ -74,12 +82,4 @@ public class AppDbContext : DbContext
 
         modelBuilder.Seed();
     }
-
-    public DbSet<Booking> Booking { get; set; }
-    public DbSet<Cinema> Cinema { get; set; }
-    public DbSet<Movie> Movie { get; set; }
-    public DbSet<Room> Room { get; set; }
-    public DbSet<Screening> Screening { get; set; }
-    public DbSet<Seat> Seat { get; set; }
-    public DbSet<User> User { get; set; }
 }
