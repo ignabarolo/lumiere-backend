@@ -11,13 +11,15 @@ public class UnitOfWork : IUnitOfWork
     public IRoomRepository RoomRepository { get; }
     public ISeatRepository SeatRepository { get; }
     public IScreeningRepository ScreeningRepository { get; }
+    public IBookingRepository BookingRepository { get; }
 
     public UnitOfWork(AppDbContext context,
         IMovieRepository movieRepository,
         ICinemaRepository cinemaRepository,
         IRoomRepository roomRepository,
         ISeatRepository seatRepository,
-        IScreeningRepository screeningRepository)
+        IScreeningRepository screeningRepository,
+        IBookingRepository bookingRepository)
     {
         _context = context;
         MovieRepository = movieRepository;
@@ -25,6 +27,7 @@ public class UnitOfWork : IUnitOfWork
         RoomRepository = roomRepository;
         SeatRepository = seatRepository;
         ScreeningRepository = screeningRepository;
+        BookingRepository = bookingRepository;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
