@@ -9,7 +9,10 @@ public interface IUnitOfWork : IDisposable
     public IRoomRepository RoomRepository { get; }
 
     public ISeatRepository SeatRepository { get; }
+
     public IScreeningRepository ScreeningRepository { get; }
+
+    public IBookingRepository BookingRepository { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
