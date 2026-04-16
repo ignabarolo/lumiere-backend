@@ -10,18 +10,21 @@ public class UnitOfWork : IUnitOfWork
     public ICinemaRepository CinemaRepository { get; }
     public IRoomRepository RoomRepository { get; }
     public ISeatRepository SeatRepository { get; }
+    public IScreeningRepository ScreeningRepository { get; }
 
     public UnitOfWork(AppDbContext context,
         IMovieRepository movieRepository,
         ICinemaRepository cinemaRepository,
         IRoomRepository roomRepository,
-        ISeatRepository seatRepository)
+        ISeatRepository seatRepository,
+        IScreeningRepository screeningRepository)
     {
         _context = context;
         MovieRepository = movieRepository;
         CinemaRepository = cinemaRepository;
         RoomRepository = roomRepository;
         SeatRepository = seatRepository;
+        ScreeningRepository = screeningRepository;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
