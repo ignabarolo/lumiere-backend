@@ -4,5 +4,5 @@ public record GetRoomDto(
     Guid Id,
     int Room_Number,
     int Capacity,
-    List<CreateSeat> Seats
+    List<GetSeatDto> Seats
 );
