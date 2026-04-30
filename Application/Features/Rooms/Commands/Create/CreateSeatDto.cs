@@ -2,5 +2,5 @@
 
 public record CreateSeatDto(
     string Row,
-    string Column
+    int Column
 );
