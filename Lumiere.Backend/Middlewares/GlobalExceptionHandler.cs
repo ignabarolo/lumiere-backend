@@ -1,5 +1,4 @@
 ﻿using Application.Exceptions;
-using Lumiere.Application.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

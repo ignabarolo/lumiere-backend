@@ -1,5 +1,4 @@
-﻿using Application.Features.Rooms.Commands.Delete;
-using Application.Features.Screenings.Commands.Create;
+﻿using Application.Features.Screenings.Commands.Create;
 using Application.Features.Screenings.Commands.Delete;
 using Application.Features.Screenings.Commands.Update;
 using Application.Features.Screenings.Queries.GetById;

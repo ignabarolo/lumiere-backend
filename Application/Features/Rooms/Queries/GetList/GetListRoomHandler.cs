@@ -1,5 +1,4 @@
-﻿using Application.Features.Movies.Queries.GetList;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using MapsterMapper;
 using MediatR;
 

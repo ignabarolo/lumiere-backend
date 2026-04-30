@@ -11,7 +11,7 @@ public class BookingMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<CreateBookingCommand, Cinema>();
+        config.NewConfig<CreateBookingCommand, Booking>();
         config.NewConfig<Booking, BookingResponse>()
             .Map(dest => dest.Screening, src => new ScreeningDto(
                 src.Screening.Id,
