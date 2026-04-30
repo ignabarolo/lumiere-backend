@@ -1,57 +1,17 @@
 using Application;
-using Domain.Interfaces;
-using Infrastructure;
-using Infrastructure.Data;
-using Infrastructure.Data.Repositories;
 using Lumiere.Backend.Middlewares;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
+using Lumiere.Infrastructure;
 using Scalar.AspNetCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-var connectionString =
-    builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-try
-{
-    using (var connection = new NpgsqlConnection(connectionString))
-    {
-        connection.Open();
-        Console.WriteLine("¡Conexión a PostgreSQL establecida con éxito!");
-        Console.WriteLine($"Versión: {connection.PostgreSqlVersion}");
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Error de conexión: {ex.Message}");
-}
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString)
-    .UseSnakeCaseNamingConvention());
-
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<ICinemaRepository, CinemaRepository>();
-builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-builder.Services.AddScoped<ISeatRepository, SeatRepository>();
-builder.Services.AddScoped<IScreeningRepository, ScreeningRepository>();
-builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationServices();
 
+
+builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
-
-//builder.Services.AddControllers();
-builder.Services.AddControllers().AddJsonOptions(options =>
-                                                options.JsonSerializerOptions
-                                                        .ReferenceHandler = ReferenceHandler.IgnoreCycles); // configuracion para ignorar ciclos de referencia en la serialización JSON
 builder.Services.AddOpenApi();
 
 
@@ -70,11 +30,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler();
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
+app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();
