@@ -1,5 +1,4 @@
-﻿using Application.Features.Rooms.Queries.GetById;
-using Application.Features.Seats.Commands.Create;
+﻿using Application.Features.Seats.Commands.Create;
 using Application.Features.Seats.Commands.Delete;
 using Application.Features.Seats.Commands.Update;
 using Application.Features.Seats.Queries.GetById;

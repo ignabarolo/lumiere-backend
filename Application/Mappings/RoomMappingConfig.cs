@@ -8,6 +8,6 @@ public class RoomMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<CreateRoomHandler, Room>();
+        config.NewConfig<CreateRoomCommand, Room>();
     }
 }

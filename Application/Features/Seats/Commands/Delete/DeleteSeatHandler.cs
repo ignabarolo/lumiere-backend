@@ -1,5 +1,5 @@
 ﻿using Domain.Interfaces;
-using Lumiere.Application.Exceptions;
+using Application.Exceptions;
 using MediatR;
 
 namespace Application.Features.Seats.Commands.Delete;

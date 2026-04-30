@@ -1,10 +1,8 @@
-﻿using Application.Features.Seats.Commands.Create;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using MapsterMapper;
 using MediatR;
-
-namespace Application.Features.Seats.Create;
+namespace Application.Features.Seats.Commands.Create;
 
 public class CreateSeatHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateSeatCommand, Guid>
 {
