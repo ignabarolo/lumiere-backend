@@ -25,14 +25,14 @@ public class MoviesController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetMovieByIdQuery(id));
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetListByFilter([FromQuery] GetListMovieQuery query)
     {
         var result = await mediator.Send(query);
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromBody] UpdateMovieCommand command, Guid id)
     {

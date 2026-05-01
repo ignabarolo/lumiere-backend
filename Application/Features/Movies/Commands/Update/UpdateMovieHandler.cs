@@ -1,14 +1,14 @@
-﻿using Domain.Interfaces;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Features.Movies.Commands.Update;
 
-public class UpdateMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<UpdateMovieCommand, Guid>
+public class UpdateMovieHandler(IMovieRepository movieRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateMovieCommand, Guid>
 {
     public async Task<Guid> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
     {
-        var movie = await unitOfWork.MovieRepository.GetByIdAsync(request.Id);
+        var movie = await movieRepository.GetByIdAsync(request.Id);
 
         if (movie == null) throw new NotFoundException($"The movie {request.Id} was not found");
 
@@ -18,7 +18,7 @@ public class UpdateMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<Update
         movie.Classification = request.Classification;
         movie.State = request.State;
 
-        unitOfWork.MovieRepository.Update(movie);
+        movieRepository.Update(movie);
         await unitOfWork.SaveChangesAsync();
 
         return movie.Id;

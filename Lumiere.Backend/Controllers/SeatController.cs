@@ -18,28 +18,28 @@ public class SeatController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id = result }, result);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await mediator.Send(new GetSeatByIdQuery(id));
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
         var result = await mediator.Send(new GetListSeatQuery());
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await mediator.Send(new DeleteSeatCommand(id));
         return NoContent();
     }
-    
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateSeatCommand command)
     {

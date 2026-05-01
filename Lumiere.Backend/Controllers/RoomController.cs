@@ -25,14 +25,14 @@ public class RoomController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetRoomByIdQuery(id));
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await mediator.Send(new DeleteRoomCommand(id));
         return NoContent();
     }
-    
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRoomCommand command)
     {
@@ -40,7 +40,7 @@ public class RoomController(IMediator mediator) : ControllerBase
         await mediator.Send(command);
         return NoContent();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetList()
     {

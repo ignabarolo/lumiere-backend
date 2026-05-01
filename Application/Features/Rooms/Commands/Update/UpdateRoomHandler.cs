@@ -1,21 +1,20 @@
-﻿using Domain.Entities;
+﻿using Application.Exceptions;
 using Domain.Interfaces;
-using Application.Exceptions;
 using MediatR;
 
 namespace Application.Features.Rooms.Commands.Update;
 
-public class UpdateRoomHandler(IUnitOfWork unitOfWork) : IRequestHandler<UpdateRoomCommand, Guid>
+public class UpdateRoomHandler(IRoomRepository roomRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateRoomCommand, Guid>
 {
     public async Task<Guid> Handle(UpdateRoomCommand request, CancellationToken cancellationToken)
     {
-        var room = await unitOfWork.RoomRepository.GetByIdAsync(request.Id)
+        var room = await roomRepository.GetByIdAsync(request.Id)
             ?? throw new NotFoundException($"The room {request.Id} was not found");
 
         room.Room_Number = request.Room_Number;
         room.Capacity = request.Capacity;
 
-        unitOfWork.RoomRepository.Update(room);
+        roomRepository.Update(room);
         await unitOfWork.SaveChangesAsync();
 
         return room.Id;

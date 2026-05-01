@@ -5,12 +5,12 @@ using MediatR;
 
 namespace Application.Features.Cinemas.Commands.Create;
 
-public class CreateCinemaHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateCinemaCommand, Guid>
+public class CreateCinemaHandler(ICinemaRepository cinemaRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateCinemaCommand, Guid>
 {
     public async Task<Guid> Handle(CreateCinemaCommand request, CancellationToken cancellationToken)
     {
         var entity = mapper.Map<Cinema>(request);
-        await unitOfWork.CinemaRepository.AddAsync(entity);
+        await cinemaRepository.AddAsync(entity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return entity.Id;

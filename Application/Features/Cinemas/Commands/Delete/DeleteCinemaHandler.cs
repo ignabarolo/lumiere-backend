@@ -1,17 +1,17 @@
-﻿using Domain.Interfaces;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Features.Cinemas.Commands.Delete;
 
-public class DeleteCinemaHandler(IUnitOfWork unitOfWork) : IRequestHandler<DeleteCinemaCommand, Guid>
+public class DeleteCinemaHandler(ICinemaRepository cinemaRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteCinemaCommand, Guid>
 {
     public async Task<Guid> Handle(DeleteCinemaCommand request, CancellationToken cancellationToken)
     {
-        var cinema = await unitOfWork.CinemaRepository.GetByIdAsync(request.Id) 
+        var cinema = await cinemaRepository.GetByIdAsync(request.Id)
             ?? throw new NotFoundException($"The cinema {request.Id} was not found");
 
-        unitOfWork.CinemaRepository.Delete(cinema);
+        cinemaRepository.Delete(cinema);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return cinema.Id;
     }

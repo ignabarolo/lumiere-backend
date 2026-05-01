@@ -20,7 +20,7 @@ public class BookingMappingConfig : IRegister
                 src.Screening.StartDate,
                 src.Screening.EndDate
             ));
-        
+
         config.NewConfig<Booking, BookingListResponse>()
             .Map(dest => dest.Screening, src => new ScreeningDto(
                 src.Screening.Id,

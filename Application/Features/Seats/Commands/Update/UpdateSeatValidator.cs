@@ -8,7 +8,7 @@ public class UpdateSeatValidator : AbstractValidator<UpdateSeatCommand>
     {
         RuleFor(x => x.Id)
             .NotNull().NotEmpty().WithMessage("The ID is required.");
-        
+
         RuleFor(x => x.Row)
             .NotEmpty().WithMessage("The row is required.")
             .MaximumLength(1).WithMessage("The row must not exceed 1 character.");

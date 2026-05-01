@@ -18,28 +18,28 @@ public class CinemaController(IMediator mediator) : ControllerBase
         var id = await mediator.Send(command);
         return Ok(id);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await mediator.Send(new GetCinemaByIdQuery(id));
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
         var result = await mediator.Send(new GetListCinemaQuery());
         return result is not null ? Ok(result) : NotFound();
     }
-    
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await mediator.Send(new DeleteCinemaCommand(id));
         return NoContent();
     }
-   
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromBody] UpdateCinemaCommand command, Guid id)
     {

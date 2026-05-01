@@ -1,18 +1,18 @@
-﻿using Domain.Interfaces;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Features.Movies.Commands.Delete;
 
-public class DeleteMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<DeleteMovieCommand, Guid>
+public class DeleteMovieHandler(IMovieRepository movieRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteMovieCommand, Guid>
 {
     public async Task<Guid> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
     {
-        var movie = await unitOfWork.MovieRepository.GetByIdAsync(request.Id);
+        var movie = await movieRepository.GetByIdAsync(request.Id);
 
         if (movie == null) throw new NotFoundException($"The movie {request.Id} was not found");
 
-        unitOfWork.MovieRepository.Delete(movie);
+        movieRepository.Delete(movie);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return movie.Id;
     }

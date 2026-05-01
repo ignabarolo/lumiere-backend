@@ -5,13 +5,13 @@ using MediatR;
 
 namespace Application.Features.Bookings.Commands.Create;
 
-public class CreateBookingHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateBookingCommand, Guid>
+public class CreateBookingHandler(IBookingRepository bookingRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateBookingCommand, Guid>
 {
     public async Task<Guid> Handle(CreateBookingCommand request, CancellationToken cancellationToken)
     {
         var booking = mapper.Map<Booking>(request);
 
-        await unitOfWork.BookingRepository.AddAsync(booking);
+        await bookingRepository.AddAsync(booking);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return booking.Id;

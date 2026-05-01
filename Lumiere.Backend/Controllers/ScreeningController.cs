@@ -25,7 +25,7 @@ namespace Lumiere.Backend.Controllers
             var result = await mediator.Send(new GetScreeningByIdQuery(id));
             return result is not null ? Ok(result) : NotFound();
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
