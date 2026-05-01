@@ -4,12 +4,12 @@ using MapsterMapper;
 using MediatR;
 namespace Application.Features.Seats.Commands.Create;
 
-public class CreateSeatHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateSeatCommand, Guid>
+public class CreateSeatHandler(ISeatRepository seatRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateSeatCommand, Guid>
 {
     public async Task<Guid> Handle(CreateSeatCommand request, CancellationToken cancellationToken)
     {
         var seat = mapper.Map<Seat>(request);
-        await unitOfWork.SeatRepository.AddAsync(seat);
+        await seatRepository.AddAsync(seat);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return seat.Id;
     }

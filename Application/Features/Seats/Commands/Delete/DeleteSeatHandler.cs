@@ -1,17 +1,17 @@
-﻿using Domain.Interfaces;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Features.Seats.Commands.Delete;
 
-public class DeleteSeatHandler(IUnitOfWork unitOfWork) : IRequestHandler<DeleteSeatCommand, Guid>
+public class DeleteSeatHandler(ISeatRepository seatRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteSeatCommand, Guid>
 {
     public async Task<Guid> Handle(DeleteSeatCommand request, CancellationToken cancellationToken)
     {
-        var seat = await unitOfWork.SeatRepository.GetByIdAsync(request.Id)
+        var seat = await seatRepository.GetByIdAsync(request.Id)
                         ?? throw new NotFoundException($"Seat with ID {request.Id} not found.");
 
-        unitOfWork.SeatRepository.Delete(seat);
+        seatRepository.Delete(seat);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return seat.Id;
     }

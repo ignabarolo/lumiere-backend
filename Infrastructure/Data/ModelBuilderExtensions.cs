@@ -29,7 +29,7 @@ public static class ModelBuilderExtensions
             Created = seedDate,
             CreatedBy = "SeedUser",
             Modified = seedDate,
-           ModifiedBy = "SeedUser"
+            ModifiedBy = "SeedUser"
         });
 
         // 3. Seed de Sala (Usando Cinema_ID para coincidir con tu configuración)

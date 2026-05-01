@@ -1,17 +1,17 @@
-﻿using Domain.Interfaces;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Features.Rooms.Commands.Delete;
 
-public class DeleteRoomHandler(IUnitOfWork unitOfWork) : IRequestHandler<DeleteRoomCommand, Guid>
+public class DeleteRoomHandler(IRoomRepository roomRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteRoomCommand, Guid>
 {
     public async Task<Guid> Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
     {
-        var room = await unitOfWork.RoomRepository.GetByIdAsync(request.Id)
+        var room = await roomRepository.GetByIdAsync(request.Id)
             ?? throw new NotFoundException($"Room with ID {request.Id} not found.");
 
-        unitOfWork.RoomRepository.Delete(room);
+        roomRepository.Delete(room);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return room.Id;
     }

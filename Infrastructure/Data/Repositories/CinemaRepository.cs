@@ -11,7 +11,7 @@ public class CinemaRepository : ICinemaRepository
 
     public CinemaRepository(AppDbContext context) => _context = context;
 
-    public async Task AddAsync(Cinema entity) 
+    public async Task AddAsync(Cinema entity)
         => await _context.Cinema.AddAsync(entity);
 
     public void Delete(Cinema entity)
@@ -27,7 +27,7 @@ public class CinemaRepository : ICinemaRepository
         => await _context.Cinema.AsNoTracking()
                                 .Include(c => c.Rooms)
                                 .ThenInclude(r => r.Seats)
-                                .FirstOrDefaultAsync( c => c.Id == id && c.State == State.Active);
+                                .FirstOrDefaultAsync(c => c.Id == id && c.State == State.Active);
 
     public void Update(Cinema entity)
         => _context.Cinema.Update(entity);

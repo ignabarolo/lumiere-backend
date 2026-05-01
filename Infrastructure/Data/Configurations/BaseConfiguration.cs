@@ -13,7 +13,7 @@ public class BaseConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseEn
         builder.Property(e => e.CreatedBy).HasMaxLength(100);
         builder.Property(e => e.Modified).IsRequired();
         builder.Property(e => e.ModifiedBy).HasMaxLength(100);
-        
+
         builder.Property(e => e.State).HasConversion<int>().IsRequired();
     }
 }

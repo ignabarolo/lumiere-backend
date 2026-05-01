@@ -10,10 +10,10 @@ public class SeatRepository : ISeatRepository
     public readonly AppDbContext _context;
 
     public SeatRepository(AppDbContext context)
-        =>  _context = context;
+        => _context = context;
 
     public async Task AddAsync(Seat entity)
-        => await _context.Seat.AddAsync(entity); 
+        => await _context.Seat.AddAsync(entity);
 
     public void Delete(Seat entity)
         => _context.Seat.Remove(entity);

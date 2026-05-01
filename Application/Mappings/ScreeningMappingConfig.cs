@@ -14,7 +14,7 @@ internal class ScreeningMappingConfig : IRegister
             .Map(dest => dest.EndTime, src => src.EndDate)
             .Map(dest => dest.MovieTitle, src => src.Movie.Title)
             .Map(dest => dest.RoomNumber, src => src.Room.Room_Number);
-        
+
         config.NewConfig<Screening, ScreeningListResponse>()
             .Map(dest => dest.StartTime, src => src.StartDate)
             .Map(dest => dest.EndTime, src => src.EndDate)

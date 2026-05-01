@@ -10,7 +10,7 @@ public class ScreeningRepository : IScreeningRepository
     public readonly AppDbContext _context;
 
     public ScreeningRepository(AppDbContext context)
-        =>_context = context;
+        => _context = context;
 
     public async Task AddAsync(Screening entity)
         => await _context.Screening
@@ -22,7 +22,7 @@ public class ScreeningRepository : IScreeningRepository
 
     public async Task<IEnumerable<Screening>> GetAllAsync()
         => await _context.Screening
-        .Where(s => s.State == State.Active)                            
+        .Where(s => s.State == State.Active)
         .Include(s => s.Movie)
         .Include(s => s.Room)
         .Include(s => s.Bookings)
