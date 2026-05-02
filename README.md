@@ -74,7 +74,17 @@ cd Lumiere.Backend
 dotnet run
 ```
 
-The API is exposed at `https://localhost:7080` and the interactive documentation (Scalar) is at `/scalar/v1`.
+API Endpoints & Profiles
+
+The API exposure depends on the active launch profile:
+
+    Kestrel (HTTPS): https://localhost:7080
+
+    Kestrel (HTTP): http://localhost:5080
+
+    IIS Express: http://localhost:44364.
+
+Regardless of the profile, the interactive documentation (Scalar) is available at /scalar/v1.
 
 ## Code conventions
 
