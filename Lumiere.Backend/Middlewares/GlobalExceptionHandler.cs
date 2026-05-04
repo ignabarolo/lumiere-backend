@@ -23,7 +23,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 }, cancellationToken);
                 return true;
             case SysValidationException validationEx:
-                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
                 {
                     Type = exception.GetType().Name,
