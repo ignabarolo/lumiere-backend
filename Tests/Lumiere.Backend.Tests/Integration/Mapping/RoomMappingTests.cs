@@ -24,7 +24,7 @@ public class RoomMappingTests : MappingTestBase
 
         AssertCommandMapping<CreateRoomCommand, Room>(json, room =>
         {
-            Assert.Equal(15, room.Room_Number);
+            Assert.Equal(15, room.RoomNumber);
             Assert.Equal(80, room.Capacity);
             Assert.NotEqual(Guid.Empty, room.CinemaId);
             Assert.Equal(2, room.Seats.Count);
@@ -37,7 +37,7 @@ public class RoomMappingTests : MappingTestBase
         var room = new Room
         {
             Id = Guid.NewGuid(),
-            Room_Number = 25,
+            RoomNumber = 25,
             Capacity = 150,
             Seats =
             [
@@ -49,7 +49,7 @@ public class RoomMappingTests : MappingTestBase
 
         Assert.NotNull(response);
         Assert.Equal(room.Id, response.Id);
-        Assert.Equal(25, response.Room_Number);
+        Assert.Equal(25, response.RoomNumber);
         Assert.Single(response.Seats);
     }
 }

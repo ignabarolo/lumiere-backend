@@ -2,4 +2,4 @@
 
 namespace Application.Features.Rooms.Queries.GetById;
 
-public record RoomResponse(Guid Id, int Room_Number, int Capacity, List<GetSeatDto> Seats);
+public record RoomResponse(Guid Id, int RoomNumber, int Capacity, List<GetSeatDto> Seats);

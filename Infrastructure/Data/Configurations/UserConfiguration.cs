@@ -9,8 +9,8 @@ public class UserConfiguration : BaseConfiguration<User>
     {
         base.Configure(builder);
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.First_Name).IsRequired().HasMaxLength(150);
-        builder.Property(e => e.Last_Name).IsRequired().HasMaxLength(150);
+        builder.Property(e => e.FirstName).IsRequired().HasMaxLength(150);
+        builder.Property(e => e.LastName).IsRequired().HasMaxLength(150);
         builder.Property(e => e.Phone).HasMaxLength(20);
     }
 }

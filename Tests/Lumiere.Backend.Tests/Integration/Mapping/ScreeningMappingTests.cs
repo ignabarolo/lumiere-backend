@@ -40,7 +40,7 @@ public class ScreeningMappingTests : MappingTestBase
             MovieId = movieId,
             Movie = new Movie { Id = movieId, Title = "Avatar" },
             RoomId = Guid.NewGuid(),
-            Room = new Room { Id = Guid.NewGuid(), Room_Number = 5 }
+            Room = new Room { Id = Guid.NewGuid(), RoomNumber = 5 }
         };
 
         var response = Mapper.Map<ScreeningResponse>(screening);

@@ -16,7 +16,7 @@ public class BookingMappingConfig : IRegister
             .Map(dest => dest.Screening, src => new ScreeningDto(
                 src.Screening.Id,
                 src.Screening.Movie.Title,
-                src.Screening.Room.Room_Number,
+                src.Screening.Room.RoomNumber,
                 src.Screening.StartDate,
                 src.Screening.EndDate
             ));
@@ -25,7 +25,7 @@ public class BookingMappingConfig : IRegister
             .Map(dest => dest.Screening, src => new ScreeningDto(
                 src.Screening.Id,
                 src.Screening.Movie.Title,
-                src.Screening.Room.Room_Number,
+                src.Screening.Room.RoomNumber,
                 src.Screening.StartDate,
                 src.Screening.EndDate
             ));

@@ -1,6 +1,4 @@
-@Lumiere.Backend_HostAddress = https://localhost:44364
+@Lumiere.Backend_HostAddress = http://localhost:5189
 
-GET {{Lumiere.Backend_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
+### Health Check
+GET {{Lumiere.Backend_HostAddress}}/health
