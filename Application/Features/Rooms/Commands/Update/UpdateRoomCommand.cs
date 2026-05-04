@@ -2,4 +2,4 @@
 
 namespace Application.Features.Rooms.Commands.Update;
 
-public record UpdateRoomCommand(Guid Id, int Room_Number, int Capacity) : IRequest<Guid>;
+public record UpdateRoomCommand(Guid Id, int RoomNumber, int Capacity) : IRequest<Guid>;

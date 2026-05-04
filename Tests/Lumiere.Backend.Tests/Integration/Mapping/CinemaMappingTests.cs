@@ -30,7 +30,7 @@ public class CinemaMappingTests : MappingTestBase
         {
             Assert.Equal("123 Main St", cinema.Address);
             Assert.Single(cinema.Rooms);
-            Assert.Equal(1, cinema.Rooms.First().Room_Number);
+            Assert.Equal(1, cinema.Rooms.First().RoomNumber);
             Assert.Equal(2, cinema.Rooms.First().Seats.Count);
         });
     }
@@ -47,7 +47,7 @@ public class CinemaMappingTests : MappingTestBase
                 new Room
                 {
                     Id = Guid.NewGuid(),
-                    Room_Number = 10,
+                    RoomNumber = 10,
                     Capacity = 200,
                     Seats =
                     [

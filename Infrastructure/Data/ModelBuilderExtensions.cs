@@ -36,7 +36,7 @@ public static class ModelBuilderExtensions
         modelBuilder.Entity<Room>().HasData(new Room
         {
             Id = roomId,
-            Room_Number = 1,
+            RoomNumber = 1,
             Capacity = 50,
             CinemaId = cinemaId, // <--- Cambiado a Cinema_ID
             State = State.Active,
@@ -80,8 +80,8 @@ public static class ModelBuilderExtensions
         modelBuilder.Entity<User>().HasData(new User
         {
             Id = userId,
-            First_Name = "Ignacio",
-            Last_Name = "Dev",
+            FirstName = "Ignacio",
+            LastName = "Dev",
             Phone = "2615551234",
             Address = "Mendoza, Argentina",
             State = State.Active,

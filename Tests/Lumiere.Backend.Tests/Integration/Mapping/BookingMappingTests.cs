@@ -42,7 +42,7 @@ public class BookingMappingTests : MappingTestBase
             PaymentMethod = PaymentMethod.Transfer,
             ScreeningId = Guid.NewGuid(),
             UserId = Guid.NewGuid(),
-            User = new User { Id = Guid.NewGuid(), First_Name = "John", Last_Name = "Doe" },
+            User = new User { Id = Guid.NewGuid(), FirstName = "John", LastName = "Doe" },
             Screening = new Screening
             {
                 Id = Guid.NewGuid(),
@@ -51,7 +51,7 @@ public class BookingMappingTests : MappingTestBase
                 MovieId = Guid.NewGuid(),
                 Movie = new Movie { Title = "Inception" },
                 RoomId = Guid.NewGuid(),
-                Room = new Room { Room_Number = 7 }
+                Room = new Room { RoomNumber = 7 }
             }
         };
 

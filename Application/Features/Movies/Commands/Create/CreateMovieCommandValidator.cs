@@ -2,9 +2,9 @@
 
 namespace Application.Features.Movies.Commands.Create;
 
-public class UpdateMovieCommandValidator : AbstractValidator<CreateMovieCommand>
+public class CreateMovieCommandValidator : AbstractValidator<CreateMovieCommand>
 {
-    public UpdateMovieCommandValidator()
+    public CreateMovieCommandValidator()
     {
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("The title is required.")

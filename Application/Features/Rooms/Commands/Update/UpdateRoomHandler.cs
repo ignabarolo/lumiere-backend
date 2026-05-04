@@ -11,7 +11,7 @@ public class UpdateRoomHandler(IRoomRepository roomRepository, IUnitOfWork unitO
         var room = await roomRepository.GetByIdAsync(request.Id)
             ?? throw new NotFoundException($"The room {request.Id} was not found");
 
-        room.Room_Number = request.Room_Number;
+        room.RoomNumber = request.RoomNumber;
         room.Capacity = request.Capacity;
 
         roomRepository.Update(room);

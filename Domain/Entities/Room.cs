@@ -2,7 +2,7 @@
 
 public class Room : BaseEntity
 {
-    public int Room_Number { get; set; }
+    public int RoomNumber { get; set; }
     public int Capacity { get; set; }
 
     public Guid CinemaId { get; set; }
