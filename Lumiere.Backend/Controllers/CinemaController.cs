@@ -4,6 +4,7 @@ using Application.Features.Cinemas.Commands.Update;
 using Application.Features.Cinemas.Queries.GetById;
 using Application.Features.Cinemas.Queries.GetList;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lumiere.Backend.Controllers;
@@ -27,6 +28,7 @@ public class CinemaController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetList()
     {
         var result = await mediator.Send(new GetListCinemaQuery());

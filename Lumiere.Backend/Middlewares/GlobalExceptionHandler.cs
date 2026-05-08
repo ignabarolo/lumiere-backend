@@ -34,9 +34,15 @@ public class GlobalExceptionHandler : IExceptionHandler
                 }, cancellationToken);
                 return true;
             default:
-                break;
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Type = exception.GetType().Name,
+                    Title = "An unexpected error occurred.",
+                    Status = StatusCodes.Status500InternalServerError,
+                    Detail = exception.Message
+                }, cancellationToken);
+                return true;
         }
-
-        return false;
     }
 }
