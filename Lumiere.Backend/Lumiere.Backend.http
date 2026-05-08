@@ -1,4 +1,9 @@
 @Lumiere.Backend_HostAddress = http://localhost:5189
+@AuthToken = token
 
 ### Health Check
 GET {{Lumiere.Backend_HostAddress}}/health
+
+### Protected Endpoint
+GET {{Lumiere.Backend_HostAddress}}/api/cinema
+Authorization: Bearer {{AuthToken}}
