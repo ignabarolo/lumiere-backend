@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
+using Application.Interfaces;
 using MapsterMapper;
 using MediatR;
 namespace Application.Features.Seats.Commands.Create;

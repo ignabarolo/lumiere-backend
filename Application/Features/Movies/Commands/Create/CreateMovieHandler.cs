@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
-using Domain.Interfaces;
+using Application.Interfaces;
 using MediatR;
 
 namespace Application.Features.Movies.Commands.Create;

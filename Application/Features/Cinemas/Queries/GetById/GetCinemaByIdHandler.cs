@@ -1,5 +1,5 @@
 ﻿using Application.Exceptions;
-using Domain.Interfaces;
+using Application.Interfaces;
 using MapsterMapper;
 using MediatR;
 

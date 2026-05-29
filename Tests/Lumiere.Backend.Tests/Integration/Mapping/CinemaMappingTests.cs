@@ -15,7 +15,7 @@ public class CinemaMappingTests : MappingTestBase
             "address": "123 Main St",
             "rooms": [
                 {
-                    "room_Number": 1,
+                    "roomNumber": 1,
                     "capacity": 100,
                     "seats": [
                         { "row": "A", "column": 1 },
@@ -63,7 +63,7 @@ public class CinemaMappingTests : MappingTestBase
         Assert.NotNull(response);
         Assert.Equal(cinema.Address, response.Address);
         Assert.Single(response.Rooms);
-        Assert.Equal(10, response.Rooms[0].Room_Number);
+        Assert.Equal(10, response.Rooms[0].RoomNumber);
         Assert.Equal(2, response.Rooms[0].Seats.Count);
     }
 }
