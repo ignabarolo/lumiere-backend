@@ -11,5 +11,9 @@ public class CinemaMappingConfig : IRegister
     {
         config.NewConfig<CreateCinemaCommand, Cinema>();
         config.NewConfig<Cinema, CinemaResponse>();
+
+        config.NewConfig<CreateRoomDto, Room>();
+
+        config.NewConfig<CreateSeatDto, Seat>();
     }
 }

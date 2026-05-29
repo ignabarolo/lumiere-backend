@@ -2,7 +2,7 @@
 
 public record GetRoomDto(
     Guid Id,
-    int Room_Number,
+    int RoomNumber,
     int Capacity,
     List<GetSeatDto> Seats
 );
